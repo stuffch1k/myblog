@@ -1,0 +1,35 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" href="{% static 'blog/css/norm.css' %}" rel="stylesheet">
+    <link type="text/css" href="{% static 'blog/css/bootstrap-grid.min.css' %}" rel="stylesheet">
+    <link type="text/css" href="{% static 'blog/css/style.css' %}" rel="stylesheet" >
+    <title>{{title}}</title>
+</head>
+<body>
+    
+    <div class="container"> 
+        <div class= "user_panel" >
+            {% if user.is_authenticated %}
+            <span class="profile-link">
+                <a href= "{% url 'my_profile' user.pk %}">
+                Мой профиль
+                </a>
+            </span>
+            <a href="{% url 'logout' %}">Выйти</a>
+            
+            {% else %}
+            <a href= "{% url 'register' %}">Зарегестрироваться</a>  <a href="{% url 'login' %}">Войти</a>
+            {%  endif %}
+        </div>
+    </div>
+    
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

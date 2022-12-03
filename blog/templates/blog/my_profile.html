@@ -1,0 +1,15 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<div class="container">
+<h1 class="username">{{user.username}}</h1>
+
+{% if user.avatar %}
+<img class="post-img user-img" src="{{ user.avatar.url }}" alt="">
+{% else %}
+<div class='no-photo'>У Вас нет загруженной аватарки</div>
+{% endif %}
+<p class="user-bio">{{user.biography}}</p>
+</div>
+
+{% endblock %}

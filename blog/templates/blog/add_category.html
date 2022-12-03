@@ -1,0 +1,16 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<div class="container">
+<form method="POST" action="{% url 'add_category' %}" enctype='multipart/form-data'>
+    {% csrf_token %}
+    {% for field in form %}
+    <div class="field_wrapper">
+        {{field.errors}}
+        {{field.label_tag}} {{field}}
+    </div>
+    {% endfor %}
+    <button class="btn-reset btn-add" type="submit">Добавить</button>
+</form>
+</div>
+{% endblock %}

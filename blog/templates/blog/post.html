@@ -1,0 +1,9 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<div class="container">
+<h2>{{post.title}}</h2>
+<img class="post-img" src="{{post.photo.url}}" alt="">
+<p>{{post.content}}</p>
+</div>
+{% endblock %}

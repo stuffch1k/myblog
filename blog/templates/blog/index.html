@@ -1,0 +1,65 @@
+{% extends 'blog/base.html' %}
+
+
+    
+
+{% block content %}
+<div class="container">
+<div class="menu">
+    {% if active == -1 %}
+    <strong> Все категории </strong>
+    {% else %}
+    <a href="{% url 'home' %}">Все категории</a>
+    {% endif %}
+ 
+   <ul class="categories__list">
+    {% for c in categories %}
+    <li class="category__item">
+        {% if active == c.slug%}
+
+        <strong  class ="strong-active" href="{% url 'category_view' c.slug %}"> {{c.name}} </strong>
+        {% else %}
+       <a href="{% url 'category_view' c.slug %}"> {{c.name}} </a>
+       {% endif %}
+    </li>
+    {% endfor%}
+   </ul>
+</div>
+
+
+<div class="post-container">
+    {% for p in posts %}
+    
+    <div class="col-lg-3">
+        <div class="post-container-preview">     
+        {% if p.photo %}
+            <img src="{{p.photo.url}}" alt="">
+        {% endif %}
+            <h3>{{p.title}}</h3>
+            <div class="preview__text">{{p.content}}</div>
+            <a href="{{p.get_absolute_url}}" class="post-container-preview-link">
+                <button class="post-container-preview-button btn-reset">Читать далее</button>
+            </a>
+        </div>
+</div>
+    {% endfor %}
+</div>
+
+    {% if user.is_authenticated %}  
+    <a style="margin-right:20px; " href="{% url 'add_post' %}">
+        
+        <button  class="post-container-preview-button add-post btn-reset">Добавить пост</button>
+        </a>
+    {% endif %}
+
+    {% if user.is_authenticated and user.is_superuser %}
+    
+    <a href="{% url 'add_category' %}">
+        <button  class="post-container-preview-button add-post btn-reset">
+            Добавить категорию
+        </button>
+        </a>
+    
+    {% endif %}
+</div>
+{% endblock %}
