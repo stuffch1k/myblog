@@ -56,6 +56,7 @@ label{
     font-size: 20px;
 }
 .container{
+    max-width: 1440px;
     padding: 20px 50px;
     margin: 0 auto;
 }
@@ -68,6 +69,7 @@ label{
 }
 .post-container{
     display: flex;
+    flex-wrap: wrap;
     max-width: 1770px;
     padding: 0 15px;
     margin: 0 auto;
@@ -126,16 +128,69 @@ label{
 .no-photo{
     font-weight: 700;
     font-size: 20px;
-    color:#c04040;
+    color:#CD5C5C;
+}
+.post_title{
+    font-size: 24px;
 }
 .post-img{
     min-width: 300px;
     height: 100%;
     object-fit: contain;
     float:left;
-    margin: 0 30px 30px 0;
+    margin-right: 30px;
 }
 .user-img{
     border-radius: 5px;
     border:1px solid #000;
+}
+.top-link{
+    margin-bottom: 20px;
+}
+.item{
+    margin-bottom: 30px;
+}
+.likes-count{
+    font-weight: 700;
+    font-size: 16px;
+    color:#CD5C5C;
+}
+.like_btn{
+    border:3px solid #333;
+    padding: 5px;
+    border-radius: 5px;
+    font-weight: 700;
+    font-size: 16px;
+    color:#CD5C5C;
+}
+.img_n_descr{
+    position: relative;
+}
+.second{
+    clear: left;
+}
+.post_content{
+    max-width: 1000px;
+}
+.comments{
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+.comment_author{
+    margin-top: 0;
+    margin-bottom: 8px;
+    display: inline-block;
+    font-weight: 700;
+    font-size: 20px;
+    color: #c04040;
+}
+.comment_text{
+    margin-top: 0;
+    margin-bottom: 8px;
+    display: inline-block;
+    font-size: 20px;
+}
+.btn-add-comment{
+    color: #CD5C5C;
+    border: 3px solid #333;
 }

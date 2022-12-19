@@ -29,19 +29,18 @@
 
 <div class="post-container">
     {% for p in posts %}
-    
-    <div class="col-lg-3">
-        <div class="post-container-preview">     
-        {% if p.photo %}
-            <img src="{{p.photo.url}}" alt="">
-        {% endif %}
-            <h3>{{p.title}}</h3>
-            <div class="preview__text">{{p.content}}</div>
-            <a href="{{p.get_absolute_url}}" class="post-container-preview-link">
-                <button class="post-container-preview-button btn-reset">Читать далее</button>
-            </a>
+        <div class="item">
+            <div class="post-container-preview">     
+            {% if p.photo %}
+                <img src="{{p.photo.url}}" alt="">
+            {% endif %}
+                <h3>{{p.title}}</h3>
+                <div class="preview__text">{{p.content}}</div>
+                <a href="{{p.get_absolute_url}}" class="post-container-preview-link">
+                    <button class="post-container-preview-button btn-reset">Читать далее</button>
+                </a>
+            </div>
         </div>
-</div>
     {% endfor %}
 </div>
 

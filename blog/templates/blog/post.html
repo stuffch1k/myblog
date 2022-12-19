@@ -2,8 +2,43 @@
 
 {% block content %}
 <div class="container">
-<h2>{{post.title}}</h2>
-<img class="post-img" src="{{post.photo.url}}" alt="">
-<p>{{post.content}}</p>
+<h2 class="post_title">{{post.title}}</h2>
+<div class="img_n_descr">
+<img class="post-img" src="{{post.photo.url}}" align="top" alt="">
+<p class="post_content"> {{post.content}}</p>
+<div class="second"></div>
 </div>
+</div>
+
+<div class="container">
+{% if user.is_authenticated %}
+<form action="{% url 'like_post' post.pk %}" method="POST" class="like_form">
+    {% csrf_token %}
+<button type="submit" class=" btn-reset like_btn">{% if liked %}Убрать лайк {% else %} Лайкнуть {% endif %} {{likes}}</button>
+</form>
+{% else %}
+<div class="likes-count">Лайков: {{likes}} </div>
+{% endif %}
+
+
+    <h3 class="comments">Комментарии:</h3>
+    {% for comment in comments %}
+    <div>
+        <p class="comment_author">{{comment.author.username}}:</p>
+        <p class="comment_text">{{comment.text}}</p>
+    </div>
+    {% endfor%}
+</div>
+
+
+{% if user.is_authenticated %}
+<div class="container">
+<h3>Оставить комментарий</h3>
+<form method="post" action="{% url 'add_comment' post.pk %}">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button class="btn-reset btn-add btn-add-comment" type="submit">Отправить</button>
+</form>
+</div>
+{% endif %}
 {% endblock %}

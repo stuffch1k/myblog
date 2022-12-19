@@ -44,3 +44,11 @@ class LoginUserForm(AuthenticationForm):
     class Meta:
         model=CustomUser
         fields=['username', 'password']
+
+class AddCommentForm(forms.ModelForm):
+    class Meta:
+        model= Comment
+        fields=['text']
+        widgets={
+            'text':forms.Textarea(attrs={'class':'form-input'})
+        }

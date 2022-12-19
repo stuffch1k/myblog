@@ -16,15 +16,16 @@
     <div class="container"> 
         <div class= "user_panel" >
             {% if user.is_authenticated %}
-            <span class="profile-link">
-                <a href= "{% url 'my_profile' user.pk %}">
+            <span class="top-link">
+                <a href= "{% url 'my_profile' %}">
                 Мой профиль
                 </a>
             </span>
             <a href="{% url 'logout' %}">Выйти</a>
             
             {% else %}
-            <a href= "{% url 'register' %}">Зарегестрироваться</a>  <a href="{% url 'login' %}">Войти</a>
+            <a class="top-link" href= "{% url 'register' %}">Зарегестрироваться</a> 
+            <a href="{% url 'login' %}">Войти</a>
             {%  endif %}
         </div>
     </div>

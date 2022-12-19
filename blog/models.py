@@ -12,6 +12,7 @@ class Blog(models.Model):
     time_update=models.DateTimeField(auto_now=True)
     is_published=models.BooleanField(default=True, verbose_name='Активен')
     category=models.ForeignKey('Category',on_delete=models.CASCADE,null=True, verbose_name='Категория')
+    likes=models.ManyToManyField('CustomUser',blank=True,null=True, verbose_name="Лайки")
 
     def __str__(self):
         return self.title
@@ -43,4 +44,16 @@ class CustomUser(AbstractUser):
         return self.username
     def get_absolute_url(self):
         return reverse("my_profile", kwargs={"username": self.username})
+
+class Comment(models.Model):
+    author=models.ForeignKey('CustomUser', on_delete=models.CASCADE, verbose_name='Автор',)
+    post=models.ForeignKey('Blog',on_delete=models.CASCADE, verbose_name='Пост',)
+    text=models.TextField(verbose_name='Текст')
+
+    def __str__(self):
+        return f"Комментарий {self.author} для поста {self.post}"
+
+    class Meta:
+        verbose_name='Комментарий'
+        verbose_name_plural='Комментарии'
     

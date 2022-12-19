@@ -20,7 +20,10 @@ urlpatterns = [
     path('register/', RegisterUser.as_view(),name="register"),
     path('login/', LoginUser.as_view(), name='login'),
     path('logout/', logout_user, name='logout'),
-    path('my_profile/<int:pk>/', ProfileView.as_view(), name='my_profile')
+    path('comment/<int:pk>', add_comment,name='add_comment'),
+    path('profile/', profile,name='my_profile'),
+    # path('my_profile/<int:pk>/', ProfileView.as_view(), name='my_profile'),
+    path('like/<int:pk>',like_view,name='like_post')
 ] 
 
 handler404 = pageNotFound

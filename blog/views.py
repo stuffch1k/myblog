@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
 from django.http import HttpResponse, HttpResponseNotFound
 from django.views.generic import ListView,DetailView,CreateView,UpdateView,DeleteView
@@ -7,6 +8,7 @@ from django.views.generic.edit import FormView
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import logout
 from django.urls import reverse, reverse_lazy
+from django.contrib.auth.decorators import login_required
 
 from .models import *
 from .forms import *
@@ -60,10 +62,17 @@ class DetailView(DetailView):
     model=Blog
     template_name='blog/post.html'
     context_object_name='post'
-    # def get_context_data(self, *, object_list=None,**kwargs):
-        # context=super().get_context_data(**kwargs)
-#         context['title']=context['post'].title
-#         return context
+    def get_context_data(self, *, object_list=None,**kwargs):
+        context=super().get_context_data(**kwargs)
+        # context['title']=context['post'].title
+        context['form']=AddCommentForm()
+        context['comments']=Comment.objects.filter(post_id=context['post'].pk)
+        liked=False
+        if context['post'].likes.filter(pk=self.request.user.pk).exists():
+            liked=True
+        context['liked']=liked
+        context['likes']=context['post'].likes.count()
+        return context
 
 # def post_detail(request,pk):
 #     post=Blog.objects.get(pk=pk)
@@ -74,9 +83,10 @@ class ProfileView(DetailView):
     template_name='blog/my_profile.html'
     pk_url_kwarg = 'pk'
     context_object_name='user'
-   
 
-
+@login_required
+def profile(request):
+    return render(request, 'blog/my_profile.html')
 # def category_view(request, slug):
 #     categories=Category.objects.all()
 #     posts=Blog.objects.filter(category__slug=slug)
@@ -140,6 +150,27 @@ class LoginUser(LoginView):
 def logout_user(request):
     logout(request)
     return redirect("home")
+
+def add_comment(request, pk):
+    post=get_object_or_404(Blog,pk=pk)
+    if request.method=="POST":
+        form=AddCommentForm(request.POST)
+        if form.is_valid():
+            comment=form.save(commit=False)
+            comment.post=post
+            comment.author=request.user
+            comment.save()
+            return redirect('detail_post', pk=post.pk)
+
+
+def like_view(request,pk):
+    post=get_object_or_404(Blog,pk=pk)
+    if post.likes.filter(pk=request.user.pk).exists():
+        post.likes.remove(request.user)
+    else:
+        post.likes.add(request.user)
+    return redirect('detail_post',pk=post.pk)
+
 
 
 
