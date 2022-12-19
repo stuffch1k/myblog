@@ -52,3 +52,16 @@ class AddCommentForm(forms.ModelForm):
         widgets={
             'text':forms.Textarea(attrs={'class':'form-input'})
         }
+
+class ChangeUserInfoForm(forms.ModelForm):
+
+    class Meta:
+        model = CustomUser
+        fields = ('biography', 'avatar')
+
+# biography=forms.CharField(label="Расскажите о себе",widget=forms.Textarea(attrs={'class':'form-input'}))
+#     avatar=forms.ImageField(label='Ваша фотография', widget=forms.FileInput(attrs={'class':'user-photo'}))
+    
+#     class Meta:
+#         model = CustomUser
+#         fields = ('biography', 'avatar')

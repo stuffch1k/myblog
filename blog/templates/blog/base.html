@@ -13,7 +13,8 @@
 </head>
 <body>
     
-    <div class="container"> 
+    <div class="container flex-panel"> 
+        <div class="home"><a href="{% url 'home' %}">На главную</a></div>
         <div class= "user_panel" >
             {% if user.is_authenticated %}
             <span class="top-link">

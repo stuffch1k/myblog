@@ -9,6 +9,8 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth import logout
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.decorators import login_required
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import *
 from .forms import *
@@ -171,6 +173,22 @@ def like_view(request,pk):
         post.likes.add(request.user)
     return redirect('detail_post',pk=post.pk)
 
+
+class ChangeUserInfoView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
+    model = CustomUser
+    template_name = "blog/change_user_info.html"
+    form_class = ChangeUserInfoForm
+    success_url = reverse_lazy("my_profile")
+    success_message = "Data was changed"
+
+    def setup(self, request, *args, **kwargs):
+        self.user_id = request.user.pk
+        return super().setup(request, *args, **kwargs)
+        
+    def get_object(self, queryset=None):
+        if not queryset:
+            queryset = self.get_queryset()
+        return get_object_or_404(queryset, pk=self.user_id)
 
 
 

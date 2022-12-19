@@ -23,7 +23,9 @@ urlpatterns = [
     path('comment/<int:pk>', add_comment,name='add_comment'),
     path('profile/', profile,name='my_profile'),
     # path('my_profile/<int:pk>/', ProfileView.as_view(), name='my_profile'),
-    path('like/<int:pk>',like_view,name='like_post')
+    path('like/<int:pk>',like_view,name='like_post'),
+    path('profile/change/', ChangeUserInfoView.as_view(), name='profile_change'),
+    
 ] 
 
 handler404 = pageNotFound
