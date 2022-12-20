@@ -25,6 +25,8 @@ urlpatterns = [
     # path('my_profile/<int:pk>/', ProfileView.as_view(), name='my_profile'),
     path('like/<int:pk>',like_view,name='like_post'),
     path('profile/change/', ChangeUserInfoView.as_view(), name='profile_change'),
+    path('profile/password/change/', UserPasswordChangeView.as_view(),name="password_change"),
+    path('profile/delete/', DeleteUserView.as_view(),name="profile_delete")
     
 ] 
 

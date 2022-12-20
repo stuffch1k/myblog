@@ -1,0 +1,12 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Удаление пользователя {{ user.username }}</h2>
+    <form method="post" action="{% url 'profile_delete' %}" enctype='multipart/form-data'>
+        {% csrf_token %}
+        <p>Нажмая кнопку "Удалить", Вы удаляете свой профиль без возможности восстановления</p>
+        <button class="btn-reset btn-edit-profile btn-change-password" type='submit'>Удалить</button>
+    </form>
+</div>
+{% endblock %}

@@ -11,6 +11,7 @@ from django.urls import reverse, reverse_lazy
 from django.contrib.auth.decorators import login_required
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import PasswordChangeView
 
 from .models import *
 from .forms import *
@@ -184,6 +185,31 @@ class ChangeUserInfoView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     def setup(self, request, *args, **kwargs):
         self.user_id = request.user.pk
         return super().setup(request, *args, **kwargs)
+        
+    def get_object(self, queryset=None):
+        if not queryset:
+            queryset = self.get_queryset()
+        return get_object_or_404(queryset, pk=self.user_id)
+
+class UserPasswordChangeView(SuccessMessageMixin, LoginRequiredMixin, PasswordChangeView):
+    template_name = 'blog/password_change.html'
+    success_url = reverse_lazy('my_profile')
+    success_message = 'Пароль пользователя изменен'
+
+class DeleteUserView(LoginRequiredMixin, DeleteView):
+
+    model = CustomUser
+    template_name = "blog/delete_user.html"
+    success_url = reverse_lazy("home")
+    context_object_name="user"
+    
+    def setup(self, request, *args, **kwargs):
+        self.user_id = request.user.pk
+        return super().setup(request, *args, **kwargs)
+        
+    def post(self, request, *args, **kwargs):
+        logout(request)
+        return super().post(request, *args, **kwargs)
         
     def get_object(self, queryset=None):
         if not queryset:

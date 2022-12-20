@@ -10,9 +10,19 @@
 <div class='no-photo'>У Вас нет загруженной аватарки</div>
 {% endif %}
 <p class="user-bio">{{user.biography}}</p>
-<a href="{% url 'profile_change' %}">
+<a class="edit-profile-link" href="{% url 'profile_change' %}">
     <button  class="btn-edit-profile btn-reset">
         Редактировать профиль 
+    </button>
+</a>
+<a class="edit-profile-link" href="{% url 'password_change' %}">
+    <button  class="btn-edit-profile btn-reset">
+        Изменить пароль 
+    </button>
+</a>
+<a href="{% url 'profile_delete' %}">
+    <button  class="btn-edit-profile btn-reset">
+        Удалить профиль 
     </button>
 </a>
 </div>
