@@ -59,6 +59,10 @@ class ChangeUserInfoForm(forms.ModelForm):
         model = CustomUser
         fields = ('biography', 'avatar')
 
+class EditPostForm(forms.ModelForm):
+    class Meta:
+        model=Blog
+        fields=('content','photo')
 # biography=forms.CharField(label="Расскажите о себе",widget=forms.Textarea(attrs={'class':'form-input'}))
 #     avatar=forms.ImageField(label='Ваша фотография', widget=forms.FileInput(attrs={'class':'user-photo'}))
     

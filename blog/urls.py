@@ -26,7 +26,8 @@ urlpatterns = [
     path('like/<int:pk>',like_view,name='like_post'),
     path('profile/change/', ChangeUserInfoView.as_view(), name='profile_change'),
     path('profile/password/change/', UserPasswordChangeView.as_view(),name="password_change"),
-    path('profile/delete/', DeleteUserView.as_view(),name="profile_delete")
+    path('profile/delete/', DeleteUserView.as_view(),name="profile_delete"),
+    path('post/<int:pk>/edit',EditPostView.as_view(), name="edit_post")
     
 ] 
 

@@ -217,4 +217,12 @@ class DeleteUserView(LoginRequiredMixin, DeleteView):
         return get_object_or_404(queryset, pk=self.user_id)
 
 
-
+class EditPostView(UpdateView):
+    model = Blog
+    template_name = "blog/edit_post.html"
+    form_class = EditPostForm
+    context_object_name='post'
+    def get_success_url(self):
+        post_id=self.kwargs['pk']
+        return reverse_lazy('detail_post', kwargs={'pk': post_id})
+    # success_url = reverse_lazy("detail_post")
